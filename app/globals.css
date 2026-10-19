@@ -1,0 +1,119 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #333333;
+  --primary: #195a00;
+  --primary-muted: #a8bca1;
+  --gray-1: #333333;
+  --gray-2: #4f4f4f;
+  --gray-3: #828282;
+  --gray-5: #e0e0e0;
+  --gray-6: #f2f2f2;
+  --footer-tint: rgba(168, 188, 161, 0.3);
+  --team-overlay: rgba(25, 90, 0, 0.85);
+  --header-height: 4rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-muted: var(--primary-muted);
+  --color-gray-1: var(--gray-1);
+  --color-gray-2: var(--gray-2);
+  --color-gray-3: var(--gray-3);
+  --color-gray-5: var(--gray-5);
+  --color-gray-6: var(--gray-6);
+  --font-sans: var(--font-inter);
+  --font-script: var(--font-miniver);
+  --font-display: var(--font-inter);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --header-height: 5rem;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), Helvetica, Arial, sans-serif;
+  overflow-x: clip;
+}
+
+.font-script {
+  font-family: var(--font-miniver), cursive;
+}
+
+.container-site {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3.5vw, 1.5rem);
+}
+
+/* Fluid type scale for hero / section titles */
+.text-display {
+  font-size: clamp(2rem, 1.35rem + 2.8vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.text-heading {
+  font-size: clamp(1.75rem, 1.35rem + 1.6vw, 3rem);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+.text-subheading {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+  line-height: 1.35;
+}
+
+/* Interactive affordance — Tailwind preflight resets button cursor */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+a,
+summary,
+input[type="submit"],
+input[type="button"],
+label[for] {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.snap-carousel {
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-carousel > * {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .snap-carousel {
+    scroll-snap-type: none;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}

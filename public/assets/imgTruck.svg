@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="56" height="55" viewBox="0 0 56 55" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Truck">
+<g id="Vector">
+</g>
+<path id="Vector_2" d="M38.5 17.1875H47.8188C48.1674 17.1853 48.5086 17.2867 48.7975 17.4784C49.0864 17.6701 49.3095 17.9432 49.4375 18.2617L52.5 25.7812" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#333333"/>
+<path id="Vector_3" d="M3.5 30.9375H38.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#333333"/>
+<path id="Vector_4" d="M46.375 41.25C46.375 44.0977 44.0245 46.4062 41.125 46.4062C38.2255 46.4062 35.875 44.0977 35.875 41.25C35.875 38.4023 38.2255 36.0938 41.125 36.0938C44.0245 36.0938 46.375 38.4023 46.375 41.25Z" stroke-width="2" stroke-miterlimit="10" stroke="#333333"/>
+<path id="Vector_5" d="M20.125 41.25C20.125 44.0977 17.7745 46.4062 14.875 46.4062C11.9755 46.4062 9.625 44.0977 9.625 41.25C9.625 38.4023 11.9755 36.0938 14.875 36.0938C17.7745 36.0938 20.125 38.4023 20.125 41.25Z" stroke-width="2" stroke-miterlimit="10" stroke="#333333"/>
+<path id="Vector_6" d="M35.875 41.25H20.125" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#333333"/>
+<path id="Vector_7" d="M9.625 41.25H5.25C4.78587 41.25 4.34075 41.0689 4.01256 40.7466C3.68437 40.4243 3.5 39.9871 3.5 39.5312V15.4688C3.5 15.0129 3.68437 14.5757 4.01256 14.2534C4.34075 13.9311 4.78587 13.75 5.25 13.75H38.5V36.7812" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#333333"/>
+<path id="Vector_8" d="M38.5 25.7812H52.5V39.5312C52.5 39.9871 52.3156 40.4243 51.9874 40.7466C51.6592 41.0689 51.2141 41.25 50.75 41.25H46.375" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke="#333333"/>
+</g>
+</svg>
