@@ -13,6 +13,8 @@
     "deploy:fly": "fly deploy"
   },
   "dependencies": {
+    "@emnapi/core": "^1.11.3",
+    "@emnapi/runtime": "^1.11.3",
     "@payos/node": "^2.0.5",
     "@sanity/client": "^8.9.0",
     "@sanity/image-url": "^2.1.1",
