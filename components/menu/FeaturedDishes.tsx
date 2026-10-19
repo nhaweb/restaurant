@@ -16,7 +16,7 @@ export function FeaturedDishes({ products }: Props) {
         <SectionHeading
           eyebrow="Món đầu bếp chọn"
           title="Món gợi ý"
-          description="Món được khách yêu thích — đặt trước, sau đó xem thực đơn đầy đủ khi bạn sẵn sàng."
+          description="Món được khách yêu thích — xem chi tiết hoặc chọn trước khi đặt bàn."
         />
 
         <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
@@ -25,9 +25,9 @@ export function FeaturedDishes({ products }: Props) {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap justify-center gap-4">
+        <div className="mt-12 flex flex-wrap justify-center gap-2.5">
           <Button href="#full-menu">Xem thực đơn đầy đủ</Button>
-          <Button href="/reservation" variant="outline">
+          <Button href="/reservation" variant="outline" shape="square">
             Đặt bàn
           </Button>
         </div>

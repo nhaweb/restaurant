@@ -88,7 +88,7 @@ export function SiteHeader({ variant = "solid" }: Props) {
         <div className="hidden items-center gap-2 xl:flex xl:gap-3">
           <Link
             href="/menu#full-menu"
-            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-md border border-transparent transition-colors hover:border-primary/20"
+            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-transparent transition-colors hover:border-primary/20 hover:bg-gray-6"
             aria-label="Xem thực đơn"
           >
             <Image src={assets.search} alt="" width={22} height={22} className="brightness-0" />
@@ -96,7 +96,7 @@ export function SiteHeader({ variant = "solid" }: Props) {
           <CartLink />
           <Link
             href="/reservation"
-            className="inline-flex cursor-pointer items-center justify-center rounded-[6px] bg-primary px-5 py-2.5 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#144800]"
+            className="inline-flex cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#144800]"
           >
             Đặt bàn
           </Link>
@@ -104,7 +104,7 @@ export function SiteHeader({ variant = "solid" }: Props) {
 
         <button
           type="button"
-          className="inline-flex size-11 cursor-pointer items-center justify-center rounded border border-primary/30 transition-colors hover:bg-primary/5 xl:hidden"
+          className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-primary/30 transition-colors hover:bg-primary/5 xl:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Đóng menu" : "Mở menu"}
@@ -142,15 +142,15 @@ export function SiteHeader({ variant = "solid" }: Props) {
               </Link>
             ))}
             <Link
-              href="/checkout"
+              href="/reservation#pre-order"
               className="cursor-pointer rounded-md px-2 py-3 text-base text-gray-1 transition-colors hover:bg-gray-6"
               onClick={() => setOpen(false)}
             >
-              Giỏ hàng
+              Món đã chọn
             </Link>
             <Link
               href="/reservation"
-              className="mt-2 inline-flex cursor-pointer items-center justify-center rounded-[6px] bg-primary px-5 py-3 text-base font-bold text-white transition-colors hover:bg-[#144800]"
+              className="mt-2 inline-flex cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#144800]"
               onClick={() => setOpen(false)}
             >
               Đặt bàn

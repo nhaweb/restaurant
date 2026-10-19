@@ -1,5 +1,13 @@
 export type ReservationStatus = "confirmed" | "cancelled";
 
+export type ReservationPreOrderItem = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
 export type OrderStatus =
   | "pending"
   | "awaiting_payment"
@@ -20,6 +28,7 @@ export type Database = {
           time: string;
           guests: number;
           notes: string | null;
+          pre_order: ReservationPreOrderItem[];
           status: ReservationStatus;
           created_at: string;
         };
@@ -32,6 +41,7 @@ export type Database = {
           time: string;
           guests: number;
           notes?: string | null;
+          pre_order?: ReservationPreOrderItem[];
           status?: ReservationStatus;
           created_at?: string;
         };
@@ -44,6 +54,7 @@ export type Database = {
           time?: string;
           guests?: number;
           notes?: string | null;
+          pre_order?: ReservationPreOrderItem[];
           status?: ReservationStatus;
           created_at?: string;
         };

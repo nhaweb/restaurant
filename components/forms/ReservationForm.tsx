@@ -1,8 +1,11 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
 import { submitReservationForm } from "@/app/actions/forms";
+import { PreOrderDishPicker } from "@/components/reservation/PreOrderDishPicker";
+import { usePreOrder } from "@/components/shop/CartProvider";
 import { restaurant } from "@/data/restaurant";
+import type { ShopProduct } from "@/data/shop";
 import type { ActionResult } from "@/lib/forms";
 
 const initialState: ActionResult | null = null;
@@ -38,17 +41,38 @@ function errorsFor(state: ActionResult | null, field: string) {
   return state.fieldErrors?.[field];
 }
 
-export function ReservationForm() {
+type Props = {
+  products: ShopProduct[];
+};
+
+export function ReservationForm({ products }: Props) {
   const [state, formAction, pending] = useActionState(
     submitReservationForm,
     initialState,
   );
+  const { items, clear } = usePreOrder();
+
+  useEffect(() => {
+    if (state?.ok) clear();
+  }, [state, clear]);
+
+  const preOrderPayload = JSON.stringify(
+    items.map(({ id, slug, name, price, quantity }) => ({
+      id,
+      slug,
+      name,
+      price,
+      quantity,
+    })),
+  );
 
   return (
-    <form action={formAction} className="space-y-4" noValidate>
+    <form action={formAction} className="space-y-6" noValidate>
+      <input type="hidden" name="preOrder" value={preOrderPayload} />
+
       <p className="rounded-[6px] bg-gray-6 px-4 py-3 text-sm leading-5 text-gray-2">
-        Giờ mở cửa: {restaurant.hours.display}. Gửi form này chỉ là yêu cầu —
-        chưa phải xác nhận ngay trừ khi chúng tôi phản hồi xác nhận qua email.
+        Giờ mở cửa: {restaurant.hours.display}. Gửi form là yêu cầu đặt bàn kèm
+        món chọn trước (nếu có) — thanh toán tại quán khi dùng bữa.
       </p>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -115,17 +139,20 @@ export function ReservationForm() {
           <label htmlFor="guests" className="mb-2 block text-sm font-medium text-gray-2">
             Số khách
           </label>
-          <input
+          <select
             id="guests"
             name="guests"
-            type="number"
-            min={1}
-            max={20}
-            defaultValue={2}
             required
             className={fieldClass}
+            defaultValue="2"
             aria-invalid={Boolean(errorsFor(state, "guests"))}
-          />
+          >
+            {[1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 15, 20].map((n) => (
+              <option key={n} value={n}>
+                {n >= 8 ? `${n} khách${n >= 10 ? " (nhóm)" : ""}` : `${n} khách`}
+              </option>
+            ))}
+          </select>
           {errorsFor(state, "guests")?.[0] && (
             <p className="mt-1 text-sm text-red-700">{errorsFor(state, "guests")?.[0]}</p>
           )}
@@ -136,8 +163,16 @@ export function ReservationForm() {
         <label htmlFor="notes" className="mb-2 block text-sm font-medium text-gray-2">
           Ghi chú (tuỳ chọn)
         </label>
-        <textarea id="notes" name="notes" rows={4} className={fieldClass} />
+        <textarea
+          id="notes"
+          name="notes"
+          rows={3}
+          className={fieldClass}
+          placeholder="Dị ứng, sinh nhật, chỗ ngồi…"
+        />
       </div>
+
+      <PreOrderDishPicker products={products} />
 
       {state && (
         <p
@@ -151,9 +186,9 @@ export function ReservationForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center justify-center rounded-[6px] bg-primary px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60"
+        className="inline-flex w-full items-center justify-center rounded-none bg-primary px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60 md:w-auto"
       >
-        {pending ? "Đang gửi…" : "Gửi yêu cầu đặt bàn"}
+        {pending ? "Đang xác nhận…" : "Xác nhận đặt bàn"}
       </button>
     </form>
   );

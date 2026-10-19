@@ -108,12 +108,13 @@ export async function submitReservationForm(
     time: formData.get("time"),
     guests: formData.get("guests"),
     notes: formData.get("notes"),
+    preOrder: formData.get("preOrder") ?? "[]",
   });
 
   if (!parsed.success) {
     return {
       ok: false,
-      message: "Please fix the highlighted fields.",
+      message: "Vui lòng kiểm tra các trường được đánh dấu.",
       fieldErrors: fieldErrorsFromZod(parsed.error),
     };
   }
@@ -131,6 +132,7 @@ export async function submitReservationForm(
         time: data.time,
         guests: data.guests,
         notes: data.notes || null,
+        pre_order: data.preOrder,
         status: "confirmed",
       });
 
@@ -138,7 +140,7 @@ export async function submitReservationForm(
         console.error("[reservation] insert failed:", error);
         return {
           ok: false,
-          message: `We could not save your reservation. Please call ${restaurant.phone.display} or email ${restaurant.email}.`,
+          message: `Không lưu được đặt bàn. Vui lòng gọi ${restaurant.phone.display} hoặc email ${restaurant.email}.`,
         };
       }
     }
@@ -146,7 +148,7 @@ export async function submitReservationForm(
     // Without Supabase, still require staff email delivery so the booking is not lost.
     const delivery = await sendStaffEmail({
       type: "reservation",
-      subject: `[${restaurant.name}] Reservation confirmed — ${data.date} ${data.time}`,
+      subject: `[${restaurant.name}] Đặt bàn — ${data.date} ${data.time}`,
       replyTo: data.email,
       text: formatReservationStaffText(data),
     });
@@ -154,7 +156,7 @@ export async function submitReservationForm(
     if (!delivery.delivered) {
       return {
         ok: false,
-        message: `${delivery.detail} To book a table now, call ${restaurant.phone.display} or email ${restaurant.email}.`,
+        message: `${delivery.detail} Đặt bàn ngay: gọi ${restaurant.phone.display} hoặc email ${restaurant.email}.`,
       };
     }
 
@@ -163,13 +165,13 @@ export async function submitReservationForm(
     return {
       ok: true,
       message:
-        "Your table is confirmed. A confirmation email is on its way — see you soon!",
+        "Đặt bàn đã được ghi nhận. Email xác nhận đang gửi — hẹn gặp bạn tại quán!",
     };
   }
 
   const staffDelivery = await sendStaffEmail({
     type: "reservation",
-    subject: `[${restaurant.name}] Reservation confirmed — ${data.date} ${data.time}`,
+    subject: `[${restaurant.name}] Đặt bàn — ${data.date} ${data.time}`,
     replyTo: data.email,
     text: formatReservationStaffText(data),
   });
@@ -183,7 +185,7 @@ export async function submitReservationForm(
   return {
     ok: true,
     message:
-      "Your table is confirmed. A confirmation email is on its way — see you soon!",
+      "Đặt bàn đã được ghi nhận. Email xác nhận đang gửi — hẹn gặp bạn tại quán!",
   };
 }
 
@@ -255,7 +257,7 @@ export async function submitNewsletterForm(
   };
 }
 
-function formatReservationStaffText(data: {
+type ReservationPayload = {
   name: string;
   email: string;
   phone: string;
@@ -263,46 +265,70 @@ function formatReservationStaffText(data: {
   time: string;
   guests: number;
   notes?: string;
-}): string {
+  preOrder: Array<{
+    id: string;
+    slug: string;
+    name: string;
+    price: number;
+    quantity: number;
+  }>;
+};
+
+function formatPreOrderLines(
+  preOrder: ReservationPayload["preOrder"],
+): string[] {
+  if (!preOrder.length) return ["Món chọn trước: (không có)"];
+  const lines = preOrder.map(
+    (item) =>
+      `- ${item.name} × ${item.quantity} ($${item.price.toFixed(2)} / món)`,
+  );
+  const total = preOrder.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
   return [
-    `Name: ${data.name}`,
+    "Món chọn trước:",
+    ...lines,
+    `Tổng ước tính: $${total.toFixed(2)} (thanh toán tại quán)`,
+  ];
+}
+
+function formatReservationStaffText(data: ReservationPayload): string {
+  return [
+    `Họ tên: ${data.name}`,
     `Email: ${data.email}`,
-    `Phone: ${data.phone}`,
-    `Date: ${data.date}`,
-    `Time: ${data.time}`,
-    `Guests: ${data.guests}`,
-    `Notes: ${data.notes || "—"}`,
+    `Điện thoại: ${data.phone}`,
+    `Ngày: ${data.date}`,
+    `Giờ: ${data.time}`,
+    `Số khách: ${data.guests}`,
+    `Ghi chú: ${data.notes || "—"}`,
     "",
-    "Status: CONFIRMED (auto-confirm).",
+    ...formatPreOrderLines(data.preOrder),
+    "",
+    "Trạng thái: đã ghi nhận (xác nhận tự động).",
   ].join("\n");
 }
 
-async function sendGuestReservationEmail(data: {
-  name: string;
-  email: string;
-  phone: string;
-  date: string;
-  time: string;
-  guests: number;
-  notes?: string;
-}) {
+async function sendGuestReservationEmail(data: ReservationPayload) {
   await sendGuestEmail({
     to: data.email,
-    subject: `Reservation confirmed — ${restaurant.name}`,
+    subject: `Xác nhận đặt bàn — ${restaurant.name}`,
     text: [
-      `Hi ${data.name},`,
+      `Xin chào ${data.name},`,
       "",
-      `Your table at ${restaurant.name} is confirmed.`,
+      `Đặt bàn tại ${restaurant.name} đã được ghi nhận.`,
       "",
-      `Date: ${data.date}`,
-      `Time: ${data.time}`,
-      `Guests: ${data.guests}`,
-      data.notes ? `Notes: ${data.notes}` : null,
+      `Ngày: ${data.date}`,
+      `Giờ: ${data.time}`,
+      `Số khách: ${data.guests}`,
+      data.notes ? `Ghi chú: ${data.notes}` : null,
       "",
-      `Address: ${restaurant.address.display}`,
-      `Phone: ${restaurant.phone.display}`,
+      ...formatPreOrderLines(data.preOrder),
       "",
-      "Need to change or cancel? Call or email us and we will help.",
+      `Địa chỉ: ${restaurant.address.display}`,
+      `Điện thoại: ${restaurant.phone.display}`,
+      "",
+      "Cần đổi giờ hoặc hủy? Gọi hoặc email cho chúng tôi.",
     ]
       .filter(Boolean)
       .join("\n"),

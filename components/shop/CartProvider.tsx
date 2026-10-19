@@ -9,7 +9,7 @@ import {
   type ReactNode,
 } from "react";
 
-export type CartLine = {
+export type PreOrderLine = {
   id: string;
   slug: string;
   name: string;
@@ -18,21 +18,25 @@ export type CartLine = {
   quantity: number;
 };
 
-type CartContextValue = {
-  items: CartLine[];
+/** @deprecated Use PreOrderLine */
+export type CartLine = PreOrderLine;
+
+type PreOrderContextValue = {
+  items: PreOrderLine[];
   count: number;
   subtotal: number;
-  addItem: (item: Omit<CartLine, "quantity">, quantity?: number) => void;
+  addItem: (item: Omit<PreOrderLine, "quantity">, quantity?: number) => void;
   removeItem: (id: string) => void;
   setQuantity: (id: string, quantity: number) => void;
   clear: () => void;
 };
 
-const CartContext = createContext<CartContextValue | null>(null);
-const STORAGE_KEY = "foodtuck-cart";
-const EMPTY: CartLine[] = [];
+const PreOrderContext = createContext<PreOrderContextValue | null>(null);
+const STORAGE_KEY = "pml-preorder";
+const LEGACY_STORAGE_KEY = "foodtuck-cart";
+const EMPTY: PreOrderLine[] = [];
 
-let memoryCart: CartLine[] = EMPTY;
+let memoryCart: PreOrderLine[] = EMPTY;
 let hydrated = false;
 const listeners = new Set<() => void>();
 
@@ -40,11 +44,13 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
-function readStorage(): CartLine[] {
+function readStorage(): PreOrderLine[] {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const raw =
+      window.localStorage.getItem(STORAGE_KEY) ??
+      window.localStorage.getItem(LEGACY_STORAGE_KEY);
     if (!raw) return EMPTY;
-    const parsed = JSON.parse(raw) as CartLine[];
+    const parsed = JSON.parse(raw) as PreOrderLine[];
     return Array.isArray(parsed) ? parsed : EMPTY;
   } catch {
     return EMPTY;
@@ -72,22 +78,23 @@ function getServerSnapshot() {
   return EMPTY;
 }
 
-function commit(next: CartLine[]) {
+function commit(next: PreOrderLine[]) {
   memoryCart = next;
   hydrated = true;
   try {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
   } catch {
     /* ignore quota errors */
   }
   emit();
 }
 
-export function CartProvider({ children }: { children: ReactNode }) {
+export function PreOrderProvider({ children }: { children: ReactNode }) {
   const items = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 
   const addItem = useCallback(
-    (item: Omit<CartLine, "quantity">, quantity = 1) => {
+    (item: Omit<PreOrderLine, "quantity">, quantity = 1) => {
       const current = getSnapshot();
       const existing = current.find((line) => line.id === item.id);
       if (existing) {
@@ -123,7 +130,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const clear = useCallback(() => commit(EMPTY), []);
 
-  const value = useMemo<CartContextValue>(() => {
+  const value = useMemo<PreOrderContextValue>(() => {
     const count = items.reduce((sum, line) => sum + line.quantity, 0);
     const subtotal = items.reduce(
       (sum, line) => sum + line.price * line.quantity,
@@ -140,13 +147,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
     };
   }, [items, addItem, removeItem, setQuantity, clear]);
 
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+  return (
+    <PreOrderContext.Provider value={value}>{children}</PreOrderContext.Provider>
+  );
 }
 
-export function useCart() {
-  const ctx = useContext(CartContext);
+/** @deprecated Use PreOrderProvider */
+export const CartProvider = PreOrderProvider;
+
+export function usePreOrder() {
+  const ctx = useContext(PreOrderContext);
   if (!ctx) {
-    throw new Error("useCart must be used within CartProvider");
+    throw new Error("usePreOrder must be used within PreOrderProvider");
   }
   return ctx;
+}
+
+/** @deprecated Use usePreOrder */
+export function useCart() {
+  return usePreOrder();
 }

@@ -53,9 +53,9 @@ export function About() {
             title={aboutCopy.title}
           />
           <p className="mb-6 text-sm leading-6 text-gray-2 sm:mb-8 sm:text-base">{aboutCopy.body}</p>
-          <div className="flex flex-wrap items-center gap-3 sm:gap-6">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <Button href="/menu">Xem thực đơn</Button>
-            <Button href="/reservation" variant="outline">
+            <Button href="/reservation" variant="outline" shape="square">
               Đặt bàn
             </Button>
           </div>

@@ -64,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
       />
       <article className="pb-16 md:pb-24">
         <div className="container-site max-w-3xl">
-          <div className="relative mb-8 aspect-[16/10] overflow-hidden rounded-[6px]">
+          <div className="relative mb-8 aspect-[21/9] overflow-hidden rounded-[6px]">
             <Image
               src={post.image}
               alt={post.title}
@@ -89,10 +89,7 @@ export default async function BlogPostPage({ params }: Props) {
               <p key={paragraph.slice(0, 48)}>{paragraph}</p>
             ))}
           </div>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <Button href="/blog" variant="outline">
-              Back to blog
-            </Button>
+          <div className="mt-10 flex flex-wrap gap-2.5">
             <Button href="/reservation">Đặt bàn</Button>
           </div>
           <p className="mt-6 text-sm text-gray-3">

@@ -84,7 +84,7 @@ export function CheckoutPayForm({ disabled }: Props) {
       <button
         type="submit"
         disabled={disabled || pending || items.length === 0}
-        className="flex h-16 w-full items-center justify-center bg-primary text-base font-bold text-white transition hover:bg-[#144800] disabled:cursor-not-allowed disabled:opacity-50"
+        className="flex h-16 w-full items-center justify-center rounded-none bg-primary text-base font-bold text-white transition hover:bg-[#144800] disabled:cursor-not-allowed disabled:opacity-50"
       >
         {pending ? "Đang tạo thanh toán…" : "Thanh toán với PayOS"}
       </button>

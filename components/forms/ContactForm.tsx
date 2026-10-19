@@ -75,7 +75,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex items-center justify-center rounded-[6px] bg-primary px-8 py-4 text-lg font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60"
+        className="inline-flex items-center justify-center rounded-none bg-primary px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60"
       >
         {pending ? "Đang gửi…" : "Gửi tin nhắn"}
       </button>

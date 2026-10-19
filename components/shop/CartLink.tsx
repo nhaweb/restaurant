@@ -2,17 +2,21 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/components/shop/CartProvider";
+import { usePreOrder } from "@/components/shop/CartProvider";
 import { assets } from "@/lib/assets";
 
 export function CartLink() {
-  const { count } = useCart();
+  const { count } = usePreOrder();
 
   return (
     <Link
-      href="/checkout"
-      className="relative inline-flex size-10 cursor-pointer items-center justify-center rounded-md border border-transparent transition-colors duration-200 hover:border-primary/20"
-      aria-label={count > 0 ? `Giỏ hàng, ${count} món` : "Giỏ hàng"}
+      href="/reservation#pre-order"
+      className="relative inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-transparent transition-colors duration-200 hover:border-primary/20 hover:bg-gray-6"
+      aria-label={
+        count > 0
+          ? `Món đã chọn cho đặt bàn, ${count} món`
+          : "Món đã chọn cho đặt bàn"
+      }
     >
       <Image src={assets.tote} alt="" width={22} height={22} className="brightness-0" />
       {count > 0 && (

@@ -39,8 +39,8 @@ export function MenuCatalog({ products: productsProp }: Props) {
       <div className="container-site">
         <SectionHeading
           eyebrow="Thực đơn đầy đủ"
-          title="Đặt món từ thực đơn"
-          description="Lọc theo danh mục, xem chi tiết món hoặc thêm thẳng vào giỏ hàng."
+          title="Xem món & chọn trước khi đặt bàn"
+          description="Lọc theo danh mục, xem chi tiết món hoặc thêm vào danh sách đặt bàn (tuỳ chọn)."
         />
 
         <div

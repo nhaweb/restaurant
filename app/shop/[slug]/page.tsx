@@ -27,9 +27,9 @@ export async function generateMetadata({ params }: Props) {
   ]);
   if (!product) {
     return pageMetadata({
-      title: "Sản phẩm",
-      description: `Mua món ${restaurant.name} trực tuyến.`,
-      path: "/shop",
+      title: "Món ăn",
+      description: `Xem món tại ${restaurant.name} — đặt bàn để dùng tại quán.`,
+      path: "/menu",
     });
   }
   return pageMetadata({
@@ -52,17 +52,18 @@ export default async function ShopDetailsPage({ params }: Props) {
       <BreadcrumbJsonLd
         items={[
           { name: "Trang chủ", path: "/" },
-          { name: "Cửa hàng", path: "/shop" },
+          { name: "Thực đơn", path: "/menu" },
           { name: product.name, path: `/shop/${product.slug}` },
         ]}
       />
       <PageHero
         variant="banner"
-        title="Chi tiết sản phẩm"
+        title={product.name}
         backgroundImage={pageImages.shopHero}
         breadcrumbs={[
           { label: "Trang chủ", href: "/" },
-          { label: "Chi tiết sản phẩm" },
+          { label: "Thực đơn", href: "/menu" },
+          { label: product.name },
         ]}
       />
       <section className="py-14 md:py-20">

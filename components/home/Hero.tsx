@@ -40,11 +40,16 @@ export function Hero() {
             {restaurant.shortDescription}
           </p>
 
-          <div className="flex flex-col items-stretch gap-3 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center min-[420px]:justify-center sm:gap-4 lg:justify-start">
+          <div className="flex flex-col items-stretch gap-2 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center min-[420px]:justify-center sm:gap-2.5 lg:justify-start">
             <Button href="/about" className="w-full min-[420px]:w-auto">
               Xem thêm
             </Button>
-            <Button href="/menu" variant="outline" className="w-full min-[420px]:w-auto">
+            <Button
+              href="/menu"
+              variant="outline"
+              shape="square"
+              className="w-full min-[420px]:w-auto"
+            >
               Xem thực đơn
             </Button>
           </div>

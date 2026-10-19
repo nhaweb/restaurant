@@ -85,7 +85,7 @@ export default function ContactPage() {
                 <span>{restaurant.hours.display}</span>
               </li>
             </ul>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2.5">
               <Button href={getDirectionsUrl()}>Chỉ đường</Button>
               <Button href={getTelHref()} variant="outline">
                 Gọi ngay

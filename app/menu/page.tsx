@@ -5,6 +5,7 @@ import { PageHero } from "@/components/layout/PageHero";
 import { PageShell } from "@/components/layout/PageShell";
 import { StatsBanner } from "@/components/shared/StatsBanner";
 import { Button } from "@/components/ui/Button";
+import { getTelHref } from "@/data/restaurant";
 import { getFeaturedShopProducts, getShopProducts } from "@/lib/content/shop";
 import { getMenuItems } from "@/lib/content/menu";
 import { BreadcrumbJsonLd, MenuJsonLd } from "@/lib/json-ld";
@@ -14,7 +15,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Thực đơn",
   description:
-    "Món đầu bếp chọn và thực đơn đầy đủ PML Food — lọc theo danh mục, thêm vào giỏ hoặc đặt bàn.",
+    "Món đầu bếp chọn và thực đơn đầy đủ PML Food — xem món, chọn trước khi đặt bàn.",
   path: "/menu",
 });
 
@@ -51,10 +52,10 @@ export default async function MenuPage() {
       <MenuCatalog products={products} />
 
       <section className="py-14 md:py-20">
-        <div className="container-site flex flex-wrap justify-center gap-4">
-          <Button href="/reservation">Đặt bàn</Button>
-          <Button href="/checkout" variant="outline">
-            Xem giỏ hàng
+        <div className="container-site flex flex-wrap justify-center gap-2.5">
+          <Button href="/reservation">Đặt bàn & chọn món</Button>
+          <Button href={getTelHref()} variant="outline">
+            Gọi đặt bàn
           </Button>
         </div>
       </section>

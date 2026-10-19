@@ -23,6 +23,21 @@ const nextConfig: NextConfig = {
         destination: "/menu",
         permanent: true,
       },
+      {
+        source: "/checkout",
+        destination: "/reservation",
+        permanent: false,
+      },
+      {
+        source: "/checkout/success",
+        destination: "/reservation",
+        permanent: false,
+      },
+      {
+        source: "/checkout/cancel",
+        destination: "/reservation",
+        permanent: false,
+      },
     ];
   },
   turbopack: {

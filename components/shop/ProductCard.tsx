@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
 import { formatShopPrice, type ShopProduct } from "@/data/shop";
-import { useCart } from "@/components/shop/CartProvider";
+import { usePreOrder } from "@/components/shop/CartProvider";
 
 type Props = {
   product: ShopProduct;
@@ -31,51 +30,24 @@ function IconSearch({ className }: { className?: string }) {
   );
 }
 
-function IconTote({ className }: { className?: string }) {
+function IconPlus({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden>
       <path
-        d="M19.579 20.25H4.421a.75.75 0 0 1-.745-.667L2.343 7.583a.75.75 0 0 1 .745-.833h17.824a.75.75 0 0 1 .745.833l-1.333 12a.75.75 0 0 1-.745.667Z"
+        d="M12 5v14M5 12h14"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M8.25 9.75V6.75a3.75 3.75 0 1 1 7.5 0v3"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function IconHeart({ className, filled }: { className?: string; filled?: boolean }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className={className}
-      fill={filled ? "currentColor" : "none"}
-      aria-hidden
-    >
-      <path
-        d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinejoin="round"
       />
     </svg>
   );
 }
 
 const actionBtnClass =
-  "inline-flex size-10 items-center justify-center bg-white text-gray-1 shadow-sm transition duration-200 hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-safe:hover:scale-105";
+  "inline-flex size-9 items-center justify-center rounded-full bg-white text-gray-1 shadow-sm transition duration-200 hover:bg-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary motion-safe:hover:scale-105";
 
 export function ProductCard({ product }: Props) {
-  const { addItem } = useCart();
-  const [saved, setSaved] = useState(false);
+  const { addItem } = usePreOrder();
 
   return (
     <article className="group relative flex flex-col">
@@ -98,7 +70,7 @@ export function ProductCard({ product }: Props) {
 
         {product.onSale && (
           <span className="absolute left-4 top-4 z-10 bg-primary px-3 py-0.5 text-sm leading-[22px] text-white">
-            Giảm giá
+            Gợi ý
           </span>
         )}
 
@@ -113,7 +85,7 @@ export function ProductCard({ product }: Props) {
           <button
             type="button"
             className={actionBtnClass}
-            aria-label={`Thêm ${product.name} vào giỏ`}
+            aria-label={`Thêm ${product.name} vào đặt bàn`}
             onClick={() =>
               addItem({
                 id: product.id,
@@ -124,18 +96,7 @@ export function ProductCard({ product }: Props) {
               })
             }
           >
-            <IconTote className="size-[18px]" />
-          </button>
-          <button
-            type="button"
-            className={`${actionBtnClass} ${saved ? "bg-primary text-white" : ""}`}
-            aria-label={
-              saved ? `Bỏ ${product.name} khỏi yêu thích` : `Lưu ${product.name} vào yêu thích`
-            }
-            aria-pressed={saved}
-            onClick={() => setSaved((v) => !v)}
-          >
-            <IconHeart className="size-[18px]" filled={saved} />
+            <IconPlus className="size-[18px]" />
           </button>
         </div>
       </div>

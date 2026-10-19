@@ -9,23 +9,23 @@ export const teamMembers = [
 
 export const features = [
   {
-    title: "Giao hàng nhanh",
-    description: "Món ăn được chuẩn bị kỹ lưỡng và phục vụ kịp thời.",
+    title: "Nguyên liệu tươi mỗi ngày",
+    description: "Rau củ theo mùa và nguyên liệu được chọn lọc mỗi buổi sáng.",
     icon: assets.truck,
   },
   {
-    title: "Phục vụ 24/7",
-    description: "Hỗ trợ và đặt món bất cứ khi nào bạn cần.",
+    title: "Công thức độc quyền",
+    description: "Công thức riêng của bếp, giữ trọn hương vị đặc trưng PML Food.",
     icon: assets.timer,
   },
   {
-    title: "Thực phẩm tươi",
-    description: "Nguyên liệu theo mùa, chế biến mỗi ngày trong bếp.",
+    title: "Phục vụ tận tâm",
+    description: "Đội ngũ chu đáo, sẵn sàng đồng hành từ lúc đặt bàn đến khi dùng bữa.",
     icon: assets.hamburger,
   },
   {
-    title: "Chất lượng ổn định",
-    description: "Tiêu chuẩn nhất quán trên từng món chúng tôi phục vụ.",
+    title: "Không gian ấm cúng",
+    description: "Không gian dễ chịu, phù hợp dùng bữa cùng gia đình và bạn bè.",
     icon: assets.factory,
   },
 ] as const;

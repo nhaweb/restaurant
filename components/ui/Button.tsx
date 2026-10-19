@@ -2,27 +2,39 @@ import Link from "next/link";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 type Variant = "solid" | "outline";
+/** square = CTA quan trọng; pill = action phụ, nhỏ gọn */
+type Shape = "square" | "pill";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: Variant;
+  /** Defaults: solid → square, outline → pill */
+  shape?: Shape;
   children: ReactNode;
   href?: string;
 };
 
-const styles: Record<Variant, string> = {
+const variantStyles: Record<Variant, string> = {
   solid: "bg-primary text-white hover:bg-[#144800] active:bg-[#123f00]",
   outline:
     "border border-primary text-primary bg-transparent hover:bg-primary/5 active:bg-primary/10",
 };
 
+const shapeStyles: Record<Shape, string> = {
+  square:
+    "rounded-none px-5 py-2.5 text-sm font-bold leading-5 sm:px-6 sm:py-3 sm:text-base sm:leading-6",
+  pill: "rounded-full px-3.5 py-1.5 text-xs font-semibold leading-4 sm:px-4 sm:py-2 sm:text-sm sm:leading-5",
+};
+
 export function Button({
   variant = "solid",
+  shape,
   children,
   className = "",
   href,
   ...props
 }: Props) {
-  const classes = `inline-flex cursor-pointer items-center justify-center rounded-[6px] px-6 py-3.5 text-base font-bold leading-6 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 sm:px-8 sm:py-4 sm:text-lg sm:leading-[26px] ${styles[variant]} ${className}`;
+  const resolvedShape: Shape = shape ?? (variant === "solid" ? "square" : "pill");
+  const classes = `inline-flex cursor-pointer items-center justify-center transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:cursor-not-allowed disabled:opacity-50 ${variantStyles[variant]} ${shapeStyles[resolvedShape]} ${className}`;
 
   if (href) {
     const external =

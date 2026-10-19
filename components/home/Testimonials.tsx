@@ -118,7 +118,7 @@ export function Testimonials({ items }: Props) {
                 type="button"
                 aria-label="Đánh giá trước"
                 onClick={prev}
-                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md border border-gray-5 transition-colors duration-200 hover:border-primary/30 hover:bg-gray-6"
+                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-gray-5 transition-colors duration-200 hover:border-primary/30 hover:bg-gray-6"
               >
                 <Image
                   src={assets.arrowLeftNav}
@@ -132,7 +132,7 @@ export function Testimonials({ items }: Props) {
                 type="button"
                 aria-label="Đánh giá tiếp"
                 onClick={next}
-                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-md border border-gray-5 transition-colors duration-200 hover:border-primary/30 hover:bg-gray-6"
+                className="inline-flex size-11 cursor-pointer items-center justify-center rounded-full border border-gray-5 transition-colors duration-200 hover:border-primary/30 hover:bg-gray-6"
               >
                 <Image src={assets.arrowRightNav} alt="" width={24} height={24} />
               </button>

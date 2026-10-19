@@ -37,9 +37,9 @@ export default function AboutPage() {
       <WhyChooseUs />
       <Team />
       <section className="pb-16 md:pb-24">
-        <div className="container-site flex flex-wrap justify-center gap-4">
+        <div className="container-site flex flex-wrap justify-center gap-2.5">
           <Button href="/menu">Xem thực đơn</Button>
-          <Button href="/reservation" variant="outline">
+          <Button href="/reservation" variant="outline" shape="square">
             Đặt bàn
           </Button>
         </div>
