@@ -282,3 +282,190 @@ button:disabled,
   outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
+
+/* —— Primary button: ink rise + corner morph + soft bloom —— */
+.btn-primary {
+  --btn-ink: #247a0a;
+  --btn-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  isolation: isolate;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.14) inset,
+    0 10px 28px -14px rgba(25, 90, 0, 0.65);
+  transition:
+    border-radius 0.55s var(--btn-ease),
+    box-shadow 0.45s var(--btn-ease),
+    letter-spacing 0.45s var(--btn-ease),
+    transform 0.35s var(--btn-ease);
+}
+
+.btn-primary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--btn-ink);
+  background-image: radial-gradient(
+    120% 90% at 50% 120%,
+    rgba(255, 255, 255, 0.22) 0%,
+    transparent 55%
+  );
+  transform: translate3d(0, 105%, 0) skewY(4deg);
+  transform-origin: bottom center;
+  transition: transform 0.55s var(--btn-ease);
+  pointer-events: none;
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: 140%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(168, 188, 161, 0.55) 0%,
+    transparent 68%
+  );
+  transform: translate(-50%, -50%) scale(0.35);
+  opacity: 0;
+  transition:
+    transform 0.6s var(--btn-ease),
+    opacity 0.45s ease;
+  pointer-events: none;
+  mix-blend-mode: soft-light;
+}
+
+.btn-primary > .btn__label,
+.btn-secondary > .btn__label {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  letter-spacing: 0.06em;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.2) inset,
+    0 0 0 1px rgba(25, 90, 0, 0.12),
+    0 18px 40px -16px rgba(25, 90, 0, 0.55);
+}
+
+.btn-primary--organic:hover,
+.btn-primary--organic:focus-visible {
+  border-radius: 0.4rem 1.15rem;
+}
+
+.btn-primary:hover::before,
+.btn-primary:focus-visible::before {
+  transform: translate3d(0, 0, 0) skewY(0deg);
+}
+
+.btn-primary:hover::after,
+.btn-primary:focus-visible::after {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.btn-primary:active {
+  transform: scale(0.985);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.1) inset,
+    0 8px 20px -14px rgba(25, 90, 0, 0.5);
+}
+
+.btn-primary:active::before {
+  background: #144800;
+}
+
+/* —— Secondary: green fills upward only (no morph / bloom) —— */
+.btn-secondary {
+  --btn-ink: #195a00;
+  --btn-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  isolation: isolate;
+  border-color: color-mix(in srgb, var(--primary) 35%, transparent);
+  background-color: rgba(255, 255, 255, 0.72);
+  color: var(--primary);
+  transition:
+    color 0.35s var(--btn-ease),
+    border-color 0.4s var(--btn-ease),
+    box-shadow 0.4s var(--btn-ease),
+    transform 0.25s var(--btn-ease);
+}
+
+.btn-secondary::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: var(--btn-ink);
+  transform: translate3d(0, 102%, 0);
+  transition: transform 0.5s var(--btn-ease);
+  pointer-events: none;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+  color: #fff;
+  border-color: var(--primary);
+  box-shadow: 0 12px 28px -16px rgba(25, 90, 0, 0.4);
+}
+
+.btn-secondary:hover::before,
+.btn-secondary:focus-visible::before {
+  transform: translate3d(0, 0, 0);
+}
+
+.btn-secondary:active {
+  transform: scale(0.985);
+  color: #fff;
+}
+
+.btn-secondary:active::before {
+  background-color: #144800;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,
+  .btn-primary::before,
+  .btn-primary::after,
+  .btn-secondary,
+  .btn-secondary::before {
+    transition: none !important;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    letter-spacing: inherit;
+  }
+
+  .btn-primary--organic:hover,
+  .btn-primary--organic:focus-visible {
+    border-radius: inherit;
+  }
+
+  .btn-primary:hover::before,
+  .btn-primary:focus-visible::before {
+    transform: none;
+    background: #1a6800;
+  }
+
+  .btn-primary:hover::after,
+  .btn-primary:focus-visible::after {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.35);
+  }
+
+  .btn-secondary:hover::before,
+  .btn-secondary:focus-visible::before {
+    transform: none;
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus-visible {
+    background-color: var(--primary);
+    color: #fff;
+  }
+}

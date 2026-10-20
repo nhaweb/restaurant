@@ -32,8 +32,10 @@ export function FeaturedDishes({ products }: Props) {
         </StaggerChildren>
 
         <div className="mt-12 flex flex-wrap justify-center gap-2.5">
-          <Button href="#full-menu">Xem thực đơn đầy đủ</Button>
-          <Button href="/reservation" variant="outline" shape="square">
+          <Button href="#full-menu" withArrow>
+            Xem thực đơn đầy đủ
+          </Button>
+          <Button href="/reservation" variant="outline">
             Đặt bàn
           </Button>
         </div>

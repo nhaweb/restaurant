@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { usePreOrder } from "@/components/shop/CartProvider";
+import { Button } from "@/components/ui/Button";
 import { formatShopPrice, type ShopProduct } from "@/data/shop";
 
 type Props = {
@@ -61,9 +62,11 @@ export function PreOrderDishPicker({ products }: Props) {
                   {formatShopPrice(product.price)}
                 </p>
               </div>
-              <button
+              <Button
                 type="button"
-                className="shrink-0 rounded-full bg-primary px-3.5 py-1.5 text-xs font-semibold text-white transition hover:bg-[#144800]"
+                shape="pill"
+                size="sm"
+                className="shrink-0"
                 onClick={() =>
                   addItem({
                     id: product.id,
@@ -75,7 +78,7 @@ export function PreOrderDishPicker({ products }: Props) {
                 }
               >
                 {selected ? `+ (${selected.quantity})` : "+ Thêm"}
-              </button>
+              </Button>
             </li>
           );
         })}

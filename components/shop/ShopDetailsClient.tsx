@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/Button";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { usePreOrder } from "@/components/shop/CartProvider";
@@ -125,13 +126,14 @@ export function ShopDetailsClient({ product }: Props) {
             </p>
 
             <div className="mt-6">
-              <button
+              <Button
                 type="button"
-                className="inline-flex h-10 min-w-[180px] items-center justify-center rounded-none bg-primary px-5 text-sm font-bold text-white transition hover:bg-[#144800] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary sm:h-11 sm:px-6 sm:text-base"
+                className="min-w-[180px]"
+                withArrow
                 onClick={reserveWithDish}
               >
                 Đặt bàn với món này
-              </button>
+              </Button>
             </div>
 
             <div className="mt-8 space-y-2 border-t border-gray-5 pt-6 text-base leading-6 text-gray-2">

@@ -4,6 +4,7 @@ import { useActionState, useEffect } from "react";
 import { submitReservationForm } from "@/app/actions/forms";
 import { PreOrderDishPicker } from "@/components/reservation/PreOrderDishPicker";
 import { usePreOrder } from "@/components/shop/CartProvider";
+import { Button } from "@/components/ui/Button";
 import { restaurant } from "@/data/restaurant";
 import type { ShopProduct } from "@/data/shop";
 import type { ActionResult } from "@/lib/forms";
@@ -183,13 +184,15 @@ export function ReservationForm({ products }: Props) {
         </p>
       )}
 
-      <button
+      <Button
         type="submit"
         disabled={pending}
-        className="inline-flex w-full items-center justify-center rounded-none bg-primary px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60 md:w-auto"
+        size="lg"
+        withArrow
+        className="w-full md:w-auto"
       >
         {pending ? "Đang xác nhận…" : "Xác nhận đặt bàn"}
-      </button>
+      </Button>
     </form>
   );
 }

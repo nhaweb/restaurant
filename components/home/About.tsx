@@ -52,8 +52,10 @@ export function About() {
             {aboutCopy.body}
           </p>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <Button href="/menu">Xem thực đơn</Button>
-            <Button href="/reservation" variant="outline" shape="square">
+            <Button href="/menu" withArrow>
+              Xem thực đơn
+            </Button>
+            <Button href="/reservation" variant="outline">
               Đặt bàn
             </Button>
           </div>

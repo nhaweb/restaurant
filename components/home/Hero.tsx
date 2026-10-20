@@ -40,13 +40,13 @@ export function Hero() {
           </p>
 
           <div className="flex flex-col items-stretch gap-2 min-[420px]:flex-row min-[420px]:flex-wrap min-[420px]:items-center min-[420px]:justify-center sm:gap-2.5 lg:justify-start">
-            <Button href="/about" className="w-full min-[420px]:w-auto">
+            <Button href="/about" size="lg" withArrow className="w-full min-[420px]:w-auto">
               Xem thêm
             </Button>
             <Button
               href="/menu"
               variant="outline"
-              shape="square"
+              size="lg"
               className="w-full min-[420px]:w-auto"
             >
               Xem thực đơn

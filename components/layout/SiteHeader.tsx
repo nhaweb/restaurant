@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CartLink } from "@/components/shop/CartLink";
+import { Button } from "@/components/ui/Button";
 import { Logo } from "@/components/ui/Logo";
 import { primaryNav } from "@/data/navigation";
 import { assets } from "@/lib/assets";
@@ -94,12 +95,9 @@ export function SiteHeader({ variant = "solid" }: Props) {
             <Image src={assets.search} alt="" width={22} height={22} className="brightness-0" />
           </Link>
           <CartLink />
-          <Link
-            href="/reservation"
-            className="inline-flex cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2 text-sm font-bold text-white transition-colors duration-200 hover:bg-[#144800]"
-          >
+          <Button href="/reservation" size="sm" withArrow>
             Đặt bàn
-          </Link>
+          </Button>
         </div>
 
         <button
@@ -155,13 +153,13 @@ export function SiteHeader({ variant = "solid" }: Props) {
             >
               Món đã chọn
             </Link>
-            <Link
+            <Button
               href="/reservation"
-              className="mt-2 inline-flex w-full cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#144800]"
+              className="mt-2 w-full"
               onClick={() => setOpen(false)}
             >
               Đặt bàn
-            </Link>
+            </Button>
           </nav>
         </div>
       </div>

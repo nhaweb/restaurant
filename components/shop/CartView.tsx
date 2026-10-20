@@ -8,6 +8,8 @@ import Link from "next/link";
 
 import { useState } from "react";
 
+import { Button } from "@/components/ui/Button";
+
 import { FadeIn } from "@/components/ui/FadeIn";
 
 import { useCart } from "@/components/shop/CartProvider";
@@ -102,31 +104,27 @@ export function CartView() {
 
             <div className="flex flex-wrap justify-center gap-4">
 
-              <Link
-
-                href="/menu#full-menu"
-
-                className="inline-flex items-center justify-center rounded-none bg-primary px-8 py-3.5 text-base font-bold text-white hover:bg-[#144800]"
-
-              >
+              <Button href="/menu#full-menu" size="lg" withArrow>
 
                 Xem thực đơn
 
-              </Link>
+              </Button>
 
-              <button
+              <Button
 
                 type="button"
 
-                onClick={seedDemoCart}
+                variant="outline"
 
-                className="inline-flex items-center justify-center rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary/5"
+                shape="pill"
+
+                onClick={seedDemoCart}
 
               >
 
                 Tải giỏ mẫu
 
-              </button>
+              </Button>
 
             </div>
 

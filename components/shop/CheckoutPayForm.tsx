@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { createPayosCheckout } from "@/app/actions/checkout";
 import { useCart } from "@/components/shop/CartProvider";
+import { Button } from "@/components/ui/Button";
 
 type Props = {
   disabled?: boolean;
@@ -81,13 +82,15 @@ export function CheckoutPayForm({ disabled }: Props) {
         </label>
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
-      <button
+      <Button
         type="submit"
         disabled={disabled || pending || items.length === 0}
-        className="flex h-16 w-full items-center justify-center rounded-none bg-primary text-base font-bold text-white transition hover:bg-[#144800] disabled:cursor-not-allowed disabled:opacity-50"
+        size="lg"
+        withArrow
+        className="h-16 w-full"
       >
         {pending ? "Đang tạo thanh toán…" : "Thanh toán với PayOS"}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -38,8 +38,10 @@ export default function AboutPage() {
       <Team />
       <section className="pb-16 md:pb-24">
         <div className="container-site flex flex-wrap justify-center gap-2.5">
-          <Button href="/menu">Xem thực đơn</Button>
-          <Button href="/reservation" variant="outline" shape="square">
+          <Button href="/menu" withArrow>
+            Xem thực đơn
+          </Button>
+          <Button href="/reservation" variant="outline">
             Đặt bàn
           </Button>
         </div>

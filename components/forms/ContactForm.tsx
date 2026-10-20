@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { submitContactForm } from "@/app/actions/forms";
+import { Button } from "@/components/ui/Button";
 import type { ActionResult } from "@/lib/forms";
 
 const initialState: ActionResult | null = null;
@@ -72,13 +73,9 @@ export function ContactForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={pending}
-        className="inline-flex items-center justify-center rounded-none bg-primary px-6 py-3 text-base font-bold text-white transition-colors hover:bg-[#144800] disabled:opacity-60"
-      >
+      <Button type="submit" disabled={pending} size="lg" withArrow>
         {pending ? "Đang gửi…" : "Gửi tin nhắn"}
-      </button>
+      </Button>
     </form>
   );
 }
