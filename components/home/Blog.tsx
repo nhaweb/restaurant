@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { StaggerChildren, StaggerItem } from "@/components/ui/StaggerChildren";
 import { blogPosts as defaultPosts, type BlogPost } from "@/data/content";
 import { assets } from "@/lib/assets";
 
@@ -25,16 +25,19 @@ export function Blog({ showHeading = true, posts }: Props) {
           />
         )}
 
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-          {blogPosts.map((post, index) => (
-            <FadeIn key={post.slug} delay={index * 0.05}>
-              <article className="rounded-[6px] bg-white p-4 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+        <StaggerChildren
+          className="grid gap-8 md:grid-cols-2 xl:grid-cols-3"
+          stagger={0.08}
+        >
+          {blogPosts.map((post) => (
+            <StaggerItem key={post.slug} as="article">
+              <div className="rounded-[6px] bg-white p-4 shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
                 <div className="relative mb-5 aspect-[392/313] overflow-hidden rounded-[6px]">
                   <Image
                     src={post.image}
                     alt={post.title}
                     fill
-                    className="object-cover"
+                    className="object-cover transition-transform duration-500 ease-out motion-safe:hover:scale-105"
                     sizes="(max-width: 1280px) 50vw, 392px"
                   />
                 </div>
@@ -61,10 +64,10 @@ export function Blog({ showHeading = true, posts }: Props) {
                   Learn More
                   <Image src={assets.arrowRight} alt="" width={16} height={16} />
                 </Link>
-              </article>
-            </FadeIn>
+              </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );

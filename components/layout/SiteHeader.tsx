@@ -125,17 +125,24 @@ export function SiteHeader({ variant = "solid" }: Props) {
         </button>
       </div>
 
-      {open && (
-        <div
-          id="mobile-nav"
-          className="max-h-[calc(100svh-4rem)] overflow-y-auto border-t border-gray-5 bg-white shadow-lg xl:hidden"
-        >
-          <nav className="container-site flex flex-col gap-1 py-4" aria-label="Menu di động">
+      <div
+        id="mobile-nav"
+        className={`grid overflow-hidden border-gray-5 bg-white shadow-lg transition-[grid-template-rows,border-color] duration-300 ease-out xl:hidden ${
+          open
+            ? "grid-rows-[1fr] border-t border-gray-5"
+            : "grid-rows-[0fr] border-t border-transparent"
+        }`}
+      >
+        <div className="min-h-0 overflow-hidden">
+          <nav
+            className="container-site flex max-h-[calc(100svh-4rem)] flex-col gap-1 overflow-y-auto py-4"
+            aria-label="Menu di động"
+          >
             {primaryNav.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="cursor-pointer rounded-md px-2 py-3 text-base text-gray-1 transition-colors hover:bg-gray-6"
+                className="block cursor-pointer rounded-md px-2 py-3 text-base text-gray-1 transition-colors hover:bg-gray-6"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
@@ -143,21 +150,21 @@ export function SiteHeader({ variant = "solid" }: Props) {
             ))}
             <Link
               href="/reservation#pre-order"
-              className="cursor-pointer rounded-md px-2 py-3 text-base text-gray-1 transition-colors hover:bg-gray-6"
+              className="block cursor-pointer rounded-md px-2 py-3 text-base text-gray-1 transition-colors hover:bg-gray-6"
               onClick={() => setOpen(false)}
             >
               Món đã chọn
             </Link>
             <Link
               href="/reservation"
-              className="mt-2 inline-flex cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#144800]"
+              className="mt-2 inline-flex w-full cursor-pointer items-center justify-center rounded-none bg-primary px-4 py-2.5 text-sm font-bold text-white transition-colors hover:bg-[#144800]"
               onClick={() => setOpen(false)}
             >
               Đặt bàn
             </Link>
           </nav>
         </div>
-      )}
+      </div>
     </header>
   );
 }

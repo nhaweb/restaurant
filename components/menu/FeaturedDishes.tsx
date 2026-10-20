@@ -3,6 +3,7 @@
 import { ProductCard } from "@/components/shop/ProductCard";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { StaggerChildren, StaggerItem } from "@/components/ui/StaggerChildren";
 import type { ShopProduct } from "@/data/shop";
 
 type Props = {
@@ -19,11 +20,16 @@ export function FeaturedDishes({ products }: Props) {
           description="Món được khách yêu thích — xem chi tiết hoặc chọn trước khi đặt bàn."
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        <StaggerChildren
+          className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4"
+          stagger={0.07}
+        >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <StaggerItem key={product.id}>
+              <ProductCard product={product} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
 
         <div className="mt-12 flex flex-wrap justify-center gap-2.5">
           <Button href="#full-menu">Xem thực đơn đầy đủ</Button>

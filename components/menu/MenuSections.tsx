@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
+import { StaggerChildren, StaggerItem } from "@/components/ui/StaggerChildren";
 import {
   formatCalories,
   formatPrice,
@@ -97,15 +98,16 @@ export function MenuSections({ sections }: Props) {
                   {section.title}
                 </h2>
               </div>
-              <div className="flex flex-col gap-8">
+              <StaggerChildren className="flex flex-col gap-8" stagger={0.06}>
                 {section.items.map((item) => (
-                  <MenuRow
-                    key={item.id}
-                    item={item}
-                    highlight={item.id === section.highlightId}
-                  />
+                  <StaggerItem key={item.id}>
+                    <MenuRow
+                      item={item}
+                      highlight={item.id === section.highlightId}
+                    />
+                  </StaggerItem>
                 ))}
-              </div>
+              </StaggerChildren>
             </div>
           </section>
         </FadeIn>

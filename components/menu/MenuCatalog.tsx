@@ -1,5 +1,6 @@
 "use client";
 
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 import { ProductCard } from "@/components/shop/ProductCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -15,7 +16,10 @@ type Props = {
   products?: ShopProduct[];
 };
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
 export function MenuCatalog({ products: productsProp }: Props) {
+  const reduceMotion = useReducedMotion();
   const shopProducts = productsProp ?? defaultProducts;
   const categories = useMemo(() => {
     if (productsProp) {
@@ -63,21 +67,43 @@ export function MenuCatalog({ products: productsProp }: Props) {
               >
                 {category}
                 {selected && (
-                  <span className="absolute bottom-0 left-0 h-0.5 w-full bg-primary" />
+                  <motion.span
+                    layoutId={reduceMotion ? undefined : "menu-catalog-tab"}
+                    className="absolute bottom-0 left-0 h-0.5 w-full bg-primary"
+                    transition={{ duration: 0.28, ease }}
+                  />
                 )}
               </button>
             );
           })}
         </div>
 
-        <div
-          className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
-          role="tabpanel"
-        >
-          {items.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={active}
+            className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3"
+            role="tabpanel"
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
+            transition={{ duration: reduceMotion ? 0.01 : 0.28, ease }}
+          >
+            {items.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: reduceMotion ? 0.01 : 0.35,
+                  delay: reduceMotion ? 0 : index * 0.04,
+                  ease,
+                }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
 
         {items.length === 0 && (
           <p className="py-16 text-center text-gray-3">

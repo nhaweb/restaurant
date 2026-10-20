@@ -1,6 +1,5 @@
 import { HeroVisual } from "@/components/home/HeroVisual";
 import { Button } from "@/components/ui/Button";
-import { FadeIn } from "@/components/ui/FadeIn";
 import { restaurant } from "@/data/restaurant";
 
 export function Hero() {
@@ -17,7 +16,7 @@ export function Hero() {
 
       <div className="container-site relative grid items-center gap-8 pb-12 pt-8 sm:gap-10 sm:pb-16 sm:pt-10 lg:grid-cols-2 lg:gap-10 lg:pb-20 lg:pt-12 xl:gap-14">
         {/* Copy stays above visual in stacking + document order on mobile */}
-        <FadeIn className="relative z-20 mx-auto w-full max-w-[34rem] text-center lg:mx-0 lg:max-w-[520px] lg:text-left">
+        <div className="relative z-20 mx-auto w-full max-w-[34rem] text-center lg:mx-0 lg:max-w-[520px] lg:text-left">
           <p className="mb-3 text-[1.75rem] font-bold leading-none tracking-tight text-gray-1 sm:mb-4 sm:text-[2.125rem]">
             PML <span className="text-primary">Food</span>
           </p>
@@ -53,7 +52,7 @@ export function Hero() {
               Xem thực đơn
             </Button>
           </div>
-        </FadeIn>
+        </div>
 
         {/* Isolated visual plane — blob cannot paint over CTAs */}
         <div className="relative z-0 isolate min-w-0">

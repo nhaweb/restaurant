@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { StaggerChildren, StaggerItem } from "@/components/ui/StaggerChildren";
 import { features, whyChooseCopy } from "@/data/content";
 import { assets } from "@/lib/assets";
 
@@ -16,7 +17,8 @@ export function WhyChooseUs() {
                 alt="Đầu bếp chuẩn bị nguyên liệu tươi"
                 fill
                 className="object-cover pb-16"
-                sizes="(max-width: 1024px) 55vw, 424px"
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 40vw, 424px"
+                quality={70}
               />
             </div>
             <div className="relative z-10 mt-6 min-h-[180px] overflow-hidden rounded-[6px] sm:mt-10 sm:min-h-[260px] md:mt-24 md:min-h-[516px] lg:!relative right-10!">
@@ -25,7 +27,8 @@ export function WhyChooseUs() {
                 alt="Salad và nước ép lành mạnh"
                 fill
                 className="object-cover "
-                sizes="(max-width: 1024px) 45vw, 385px"
+                sizes="(max-width: 640px) 40vw, (max-width: 1024px) 35vw, 385px"
+                quality={70}
               />
             </div>
           </div>
@@ -46,22 +49,21 @@ export function WhyChooseUs() {
           />
           <p className="mb-6 text-sm leading-6 text-gray-3 sm:mb-8 sm:text-base">{whyChooseCopy.body}</p>
 
-          <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+          <StaggerChildren className="grid gap-3 sm:grid-cols-2 sm:gap-4" stagger={0.08}>
             {features.map((feature, index) => (
-              <div
-                key={feature.title}
-                className="relative flex items-center gap-3 overflow-hidden rounded-[6px] bg-white py-3.5 pl-3.5 pr-3 shadow-[0px_0px_80px_0px_rgba(205,205,205,0.25)] sm:gap-4 sm:py-4 sm:pl-4"
-              >
-                {index === 0 && (
-                  <span className="absolute inset-y-0 left-0 w-1 rounded-l-[6px] bg-primary" />
-                )}
-                <Image src={feature.icon} alt="" width={48} height={48} className="size-10 shrink-0 sm:size-12" />
-                <p className="text-base font-bold leading-6 text-gray-2 sm:text-xl sm:leading-7">
-                  {feature.title}
-                </p>
-              </div>
+              <StaggerItem key={feature.title}>
+                <div className="relative flex items-center gap-3 overflow-hidden rounded-[6px] bg-white py-3.5 pl-3.5 pr-3 shadow-[0px_0px_80px_0px_rgba(205,205,205,0.25)] sm:gap-4 sm:py-4 sm:pl-4">
+                  {index === 0 && (
+                    <span className="absolute inset-y-0 left-0 w-1 rounded-l-[6px] bg-primary" />
+                  )}
+                  <Image src={feature.icon} alt="" width={48} height={48} className="size-10 shrink-0 sm:size-12" />
+                  <p className="text-base font-bold leading-6 text-gray-2 sm:text-xl sm:leading-7">
+                    {feature.title}
+                  </p>
+                </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerChildren>
         </FadeIn>
       </div>
     </section>

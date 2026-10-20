@@ -37,7 +37,9 @@ export function Partners() {
                   width={160}
                   height={64}
                   className="h-12 w-auto max-w-[140px] object-contain opacity-35 grayscale transition-[opacity,filter] duration-300 sm:h-14 sm:max-w-[160px] md:h-16"
-                  sizes="160px"
+                  sizes="140px"
+                  quality={60}
+                  loading="lazy"
                 />
               </div>
             );

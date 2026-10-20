@@ -16,7 +16,8 @@ export function About() {
               alt="Đầu bếp chuẩn bị món tươi"
               fill
               className="object-cover"
-              sizes="(max-width: 1024px) 50vw, 336px"
+              sizes="(max-width: 640px) 45vw, (max-width: 1024px) 40vw, 336px"
+              quality={70}
             />
           </div>
           <div className="relative min-h-[120px] overflow-hidden rounded-[6px] sm:min-h-[160px] md:min-h-[271px]">
@@ -25,7 +26,8 @@ export function About() {
               alt="Chuẩn bị trong bếp"
               fill
               className="object-cover"
-              sizes="(max-width: 1024px) 45vw, 309px"
+              sizes="(max-width: 640px) 40vw, (max-width: 1024px) 35vw, 309px"
+              quality={70}
             />
           </div>
           <div className="relative min-h-[150px] overflow-hidden rounded-[6px] sm:min-h-[200px] md:min-h-[382px]">
@@ -34,16 +36,10 @@ export function About() {
               alt="Đĩa salad tươi"
               fill
               className="object-cover"
-              sizes="(max-width: 1024px) 45vw, 309px"
+              sizes="(max-width: 640px) 40vw, (max-width: 1024px) 35vw, 309px"
+              quality={70}
             />
           </div>
-          <Image
-            src={assets.aboutLeaf}
-            alt=""
-            width={180}
-            height={220}
-            className="pointer-events-none absolute -bottom-10 -left-16 hidden w-44 rotate-[48deg] mix-blend-screen lg:block"
-          />
         </FadeIn>
 
         <FadeIn delay={0.08}>
@@ -52,7 +48,9 @@ export function About() {
             eyebrow={aboutCopy.eyebrow}
             title={aboutCopy.title}
           />
-          <p className="mb-6 text-sm leading-6 text-gray-2 sm:mb-8 sm:text-base">{aboutCopy.body}</p>
+          <p className="mb-6 text-sm leading-6 text-gray-2 sm:mb-8 sm:text-base">
+            {aboutCopy.body}
+          </p>
           <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <Button href="/menu">Xem thực đơn</Button>
             <Button href="/reservation" variant="outline" shape="square">

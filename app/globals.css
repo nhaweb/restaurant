@@ -91,6 +91,81 @@ button:disabled,
   cursor: not-allowed;
 }
 
+/* Lightweight stagger (no motion.js on critical path) */
+.stagger-group[data-stagger-ready="true"][data-stagger-visible="false"]
+  .stagger-item {
+  opacity: 0;
+  transform: translate3d(0, 16px, 0);
+}
+
+.stagger-group[data-stagger-visible="true"] .stagger-item {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--stagger-delay, 0s);
+}
+
+/* Skip rendering work for off-screen sections until near viewport */
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 720px;
+}
+
+/* Hero ambient motion — LCP bowl stays static/paint-ready */
+@keyframes hero-float {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -8px, 0);
+  }
+}
+
+@keyframes hero-leaf-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-67deg);
+  }
+  50% {
+    transform: translate3d(0, 6px, 0) rotate(-62deg);
+  }
+}
+
+@keyframes hero-leaf-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(129deg);
+  }
+  50% {
+    transform: translate3d(0, -7px, 0) rotate(124deg);
+  }
+}
+
+.hero-leaf--a {
+  transform: rotate(-67deg);
+}
+
+.hero-leaf--b {
+  transform: rotate(129deg);
+}
+
+@media (min-width: 768px) {
+  .hero-bowl__float {
+    animation: hero-float 5.5s ease-in-out infinite;
+  }
+
+  .hero-leaf--a {
+    animation: hero-leaf-a 4.2s ease-in-out 0.4s infinite;
+  }
+
+  .hero-leaf--b {
+    animation: hero-leaf-b 4.8s ease-in-out 0.8s infinite;
+  }
+}
+
 .snap-carousel {
   scroll-snap-type: x mandatory;
   overscroll-behavior-x: contain;
@@ -158,6 +233,28 @@ button:disabled,
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .hero-bowl__float,
+  .hero-leaf--a,
+  .hero-leaf--b {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero-leaf--a {
+    transform: rotate(-67deg) !important;
+  }
+
+  .hero-leaf--b {
+    transform: rotate(129deg) !important;
+  }
+
+  .stagger-group[data-stagger-ready="true"][data-stagger-visible="false"]
+    .stagger-item {
+    opacity: 1;
+    transform: none;
   }
 
   .snap-carousel {

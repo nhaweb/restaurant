@@ -5,19 +5,23 @@ import { RestaurantJsonLd } from "@/lib/json-ld";
 import { defaultMetadata } from "@/lib/seo";
 import "./globals.css";
 
+/** Variable Inter — one file instead of per-weight downloads */
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin", "latin-ext", "vietnamese"],
-  weight: ["400", "500", "600", "700"],
+  subsets: ["latin", "vietnamese"],
   display: "swap",
+  preload: true,
+  adjustFontFallback: true,
 });
 
-/** Script accent — Miniver lacks Vietnamese glyphs and broke layout */
+/** Script accent — non-critical; optional avoids blocking first paint */
 const script = Beau_Rivage({
   variable: "--font-script-face",
-  subsets: ["latin", "latin-ext", "vietnamese"],
+  subsets: ["latin", "vietnamese"],
   weight: "400",
-  display: "swap",
+  display: "optional",
+  preload: false,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = defaultMetadata;

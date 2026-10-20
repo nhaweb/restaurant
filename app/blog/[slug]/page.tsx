@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { PageHero } from "@/components/layout/PageHero";
 import { PageShell } from "@/components/layout/PageShell";
 import { Button } from "@/components/ui/Button";
+import { FadeIn } from "@/components/ui/FadeIn";
 import { blogPosts as staticPosts } from "@/data/content";
 import { getBlogPost, getBlogPosts } from "@/lib/content/blog";
 import { assets } from "@/lib/assets";
@@ -63,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
         ]}
       />
       <article className="pb-16 md:pb-24">
-        <div className="container-site max-w-3xl">
+        <FadeIn className="container-site max-w-3xl py-14">
           <div className="relative mb-8 aspect-[21/9] overflow-hidden rounded-[6px]">
             <Image
               src={post.image}
@@ -97,7 +98,7 @@ export default async function BlogPostPage({ params }: Props) {
               ← Tất cả bài viết
             </Link>
           </p>
-        </div>
+        </FadeIn>
       </article>
     </PageShell>
   );

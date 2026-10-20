@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { CountUp, parseStatValue } from "@/components/ui/CountUp";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { pageImages } from "@/lib/page-images";
 import { assets } from "@/lib/assets";
@@ -23,25 +26,30 @@ export function StatsBanner() {
       <div className="absolute inset-0 bg-[#0d0d0d]/85" aria-hidden />
       <div className="container-site relative z-10">
         <ul className="grid grid-cols-2 gap-10 lg:grid-cols-4 lg:gap-8">
-          {stats.map((stat, index) => (
-            <FadeIn key={stat.label} delay={index * 0.06}>
-              <li className="flex flex-col items-center text-center text-white">
-                <Image
-                  src={stat.icon}
-                  alt=""
-                  width={80}
-                  height={80}
-                  className="mb-6 size-16 brightness-0 invert md:size-20"
-                />
-                <p className="text-[36px] font-bold leading-[48px] md:text-[40px]">
-                  {stat.value}
-                </p>
-                <p className="mt-2 text-lg font-bold leading-8 md:text-2xl">
-                  {stat.label}
-                </p>
-              </li>
-            </FadeIn>
-          ))}
+          {stats.map((stat, index) => {
+            const { value, suffix } = parseStatValue(stat.value);
+            return (
+              <FadeIn key={stat.label} delay={index * 0.08}>
+                <li className="flex flex-col items-center text-center text-white">
+                  <Image
+                    src={stat.icon}
+                    alt=""
+                    width={80}
+                    height={80}
+                    className="mb-6 size-16 brightness-0 invert md:size-20"
+                  />
+                  <CountUp
+                    value={value}
+                    suffix={suffix}
+                    className="text-[36px] font-bold leading-[48px] md:text-[40px]"
+                  />
+                  <p className="mt-2 text-lg font-bold leading-8 md:text-2xl">
+                    {stat.label}
+                  </p>
+                </li>
+              </FadeIn>
+            );
+          })}
         </ul>
       </div>
     </section>

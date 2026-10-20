@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { FadeIn } from "@/components/ui/FadeIn";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { StaggerChildren, StaggerItem } from "@/components/ui/StaggerChildren";
 import { teamMembers as defaultTeam } from "@/data/content";
 import { restaurant } from "@/data/restaurant";
 import type { TeamMember } from "@/lib/content/home";
@@ -37,9 +37,12 @@ export function Team({ members }: Props) {
           description="Những người đứng sau PML Food — lòng hiếu khách, tay nghề bếp và sự chăm sóc khách hàng mỗi ngày."
         />
 
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
-          {teamMembers.map((member, index) => (
-            <FadeIn key={member.name} delay={index * 0.05} className="w-full">
+        <StaggerChildren
+          className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6"
+          stagger={0.08}
+        >
+          {teamMembers.map((member) => (
+            <StaggerItem key={member.name} className="w-full">
               <article className="relative w-full overflow-hidden bg-white shadow-[0px_0px_80px_0px_rgba(205,205,205,0.25)]">
                 <div className="relative aspect-[312/310] bg-[#7a7a7a]">
                   <Image
@@ -93,9 +96,9 @@ export function Team({ members }: Props) {
                   <p className="text-base leading-6 text-gray-3">{member.role}</p>
                 </div>
               </article>
-            </FadeIn>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
